@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net"
+	"strings"
 )
 
 func main() {
@@ -34,13 +35,17 @@ func echo(connection *net.UDPConn) {
 			continue
 		}
 
-		log.Printf("[%v] Recive message : %s\n", client.IP.String(), buffer)
+		request := strings.TrimSpace(string(buffer[:length]))
+		log.Printf("[%v] Recive message : %v\n", client.IP.String(), request)
 		loggingRedis(client)
 
-		sent, err := connection.WriteToUDP(buffer[:length], client)
+		response := []byte(request)
+		sent, err := connection.WriteToUDP(append(response, '\n'), client)
 		if err != nil {
 			log.Fatalf("[%v] Fail to send %v\n", err, client.IP.String())
 		}
-		log.Printf("[%v] Send %v byte : %s\n", client.IP.String(), sent, buffer)
+		log.Printf("[%v] Send %v byte : %s\n", client.IP.String(), sent-1, response)
+
+		clear(buffer)
 	}
 }
