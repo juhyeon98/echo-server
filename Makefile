@@ -1,4 +1,8 @@
-.PHONY : build start down stop clean
+.PHONY : all build start down stop clean
+
+all		: build up start
+
+fclean	: stop down clean
 
 build	:
 	@docker-compose -f ./src/docker-compose.yml build
