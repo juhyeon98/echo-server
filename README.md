@@ -1,4 +1,4 @@
-# Echo 서버
+# UDP-echo-server
 
 이 프로젝트는 Redis를 사용하여 로깅하는 UDP 에코 서버입니다.
 
