@@ -17,7 +17,7 @@ services:
       dockerfile: Dockerfile
     container_name: go-app
     ports:
-      - ${SERVER_BINDING_PORT}:8080
+      - ${SERVER_BINDING_PORT}:8080/udp
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379

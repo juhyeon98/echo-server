@@ -34,11 +34,7 @@ func initRedis() {
 }
 
 func loggingRedis(address *net.UDPAddr) {
-	result := rdb.Get(address.IP.String())
-	if result != nil {
-		return
-	}
-	err := rdb.Set(address.IP.String(), "true", 0).Err()
+	err := rdb.Set(address.IP.String(), "true", 0)
 	if err != nil {
 		log.Printf("Fail to set %s", address.IP.String())
 	}
